@@ -10,7 +10,7 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
     const fineAggregate = parseFloat(document.getElementById('fine-aggregate').value);
     const age = parseFloat(document.getElementById('age').value);
 
-    const model = await tf.loadLayersModel('model/model.json');
+    const model = await tf.loadLayersModel('model.json');
 
     const input = tf.tensor2d([[cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, age]]);
 
