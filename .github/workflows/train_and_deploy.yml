@@ -45,7 +45,12 @@ jobs:
 
     - name: Convert Keras model to TensorFlow.js format
       run: |
-        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages
+        mkdir -p pages/concrete-playground
+        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages/concrete-playground
+
+    - name: Update model.json paths
+      run: |
+        python scripts/update_model_paths.py pages/concrete-playground/model.json concrete-playground
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
