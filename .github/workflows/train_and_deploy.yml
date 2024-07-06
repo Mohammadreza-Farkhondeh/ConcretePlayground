@@ -45,7 +45,7 @@ jobs:
 
     - name: Convert Keras model to TensorFlow.js format
       run: |
-        tensorflowjs_converter --input_format keras model/concrete_model.keras pages
+        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
