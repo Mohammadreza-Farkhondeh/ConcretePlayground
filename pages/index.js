@@ -1,6 +1,7 @@
 document.getElementById('prediction-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Get form values
     const cement = parseFloat(document.getElementById('cement').value);
     const blastFurnaceSlag = parseFloat(document.getElementById('blast-furnace-slag').value);
     const flyAsh = parseFloat(document.getElementById('fly-ash').value);
@@ -10,6 +11,7 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
     const fineAggregate = parseFloat(document.getElementById('fine-aggregate').value);
     const age = parseFloat(document.getElementById('age').value);
 
+    // Load the model
     const modelUrl = 'model.json';
     let model;
     try {
@@ -21,7 +23,8 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
         return;
     }
 
-    const inputShape = [1, 8];
+    // Create a tensor with the correct shape
+    const inputShape = [1, 8];  // Batch size of 1 and 8 features
     const input = tf.tensor2d([[cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, age]], inputShape);
     console.log('Input tensor shape:', input.shape);
 
