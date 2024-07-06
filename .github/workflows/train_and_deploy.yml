@@ -45,14 +45,13 @@ jobs:
 
     - name: Convert Keras model to TensorFlow.js format
       run: |
-        tensorflowjs_converter --input_format keras model/concrete_model.keras model
+        tensorflowjs_converter --input_format keras model/concrete_model.keras pages
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'pages'
 
     - name: Deploy to GitHub Pages
-      run: |
-        mv model/* pages/
-        touch pages/.nojekyll
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./pages
-
+      id: deployment
+      uses: actions/deploy-pages@v4
