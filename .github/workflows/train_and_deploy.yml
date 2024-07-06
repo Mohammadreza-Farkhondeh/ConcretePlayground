@@ -45,7 +45,15 @@ jobs:
 
     - name: Convert Keras model to TensorFlow.js format
       run: |
-        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages
+        mkdir -p pages/concrete-playground
+        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages/concrete-playground
+        MODEL_JSON_PATH="pages/concrete-playground/model.json"
+        SUBDIRECTORY="concrete-playground"
+        jq --arg subdirectory "$SUBDIRECTORY" '
+          .weightsManifest |= map(
+            .paths |= map($subdirectory + "/" + .)
+          )
+        ' "$MODEL_JSON_PATH" > tmp.$$.json && mv tmp.$$.json "$MODEL_JSON_PATH"
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
@@ -55,3 +63,4 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+
