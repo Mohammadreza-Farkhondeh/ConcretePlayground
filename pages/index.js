@@ -10,29 +10,30 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
     const fineAggregate = parseFloat(document.getElementById('fine-aggregate').value);
     const age = parseFloat(document.getElementById('age').value);
 
-    console.log('Input values:', {
-        cement,
-        blastFurnaceSlag,
-        flyAsh,
-        water,
-        superplasticizer,
-        coarseAggregate,
-        fineAggregate,
-        age
-    });
-
     const modelUrl = 'model.json';
-    const model = await tf.loadLayersModel(modelUrl);
+    let model;
+    try {
+        model = await tf.loadLayersModel(modelUrl);
+        console.log('Model loaded successfully');
+    } catch (error) {
+        console.error('Error loading model:', error);
+        document.getElementById('result').innerText = 'Error loading model.';
+        return;
+    }
 
-    console.log('Model loaded from:', modelUrl);
-
-    const input = tf.tensor2d([[cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, age]]);
+    const inputShape = [1, 8];
+    const input = tf.tensor2d([[cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, age]], inputShape);
     console.log('Input tensor shape:', input.shape);
 
-    const prediction = model.predict(input);
-    const result = prediction.dataSync()[0];
-
-    console.log('Prediction result:', result);
-
-    document.getElementById('result').innerText = `Predicted Compressive Strength: ${result.toFixed(2)} MPa`;
+    // Predict
+    let prediction;
+    try {
+        prediction = model.predict(input);
+        const result = prediction.dataSync()[0];
+        console.log('Prediction result:', result);
+        document.getElementById('result').innerText = `Predicted Compressive Strength: ${result.toFixed(2)} MPa`;
+    } catch (error) {
+        console.error('Error during prediction:', error);
+        document.getElementById('result').innerText = 'Error during prediction.';
+    }
 });
