@@ -45,8 +45,7 @@ jobs:
 
     - name: Convert Keras model to TensorFlow.js format
       run: |
-        mkdir -p pages/concrete-playground
-        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages/concrete-playground
+        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages
         MODEL_JSON_PATH="pages/concrete-playground/model.json"
         SUBDIRECTORY="concrete-playground"
         jq --arg subdirectory "$SUBDIRECTORY" '
