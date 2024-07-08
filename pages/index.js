@@ -26,8 +26,8 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
     const response = await fetch('scaler_params.json');
     const scalerParams = await response.json();
 
-    const in = [cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, logAge];
-    const scaledInput = in.map((value, index) => {
+    const inp = [cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, logAge];
+    const scaledInput = inp.map((value, index) => {
         return (value - scalerParams.mean[index]) / Math.sqrt(scalerParams.var[index]);
     });
 
