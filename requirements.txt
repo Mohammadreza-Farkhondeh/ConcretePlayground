@@ -1,5 +1,5 @@
 pandas
 scikit-learn
-tensorflow
+tensorflow<2.16
 joblib
 tensorflowjs
