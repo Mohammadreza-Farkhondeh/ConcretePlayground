@@ -89,7 +89,8 @@ def main():
     model.fit(X, y, epochs=50, batch_size=32)
 
     # Save the trained model in a specified directory for TensorFlow.js.
-    tfjs.converters.save_keras_model(model, save_dir)  # Use the save directory from the command-line arguments
+    #tfjs.converters.save_keras_model(model, save_dir)  # Use the save directory from the command-line arguments
+    model.save("model/concrete_model.h5")
 
     print("Model training and conversion complete.")
 
