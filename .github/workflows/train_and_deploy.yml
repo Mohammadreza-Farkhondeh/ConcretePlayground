@@ -41,12 +41,12 @@ jobs:
 
     - name: Run model training
       run: |
-        python scripts/train.py --input-dir data --save-dir model_js
+        python scripts/train.py --input-dir data --save-dir pages
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: 'model_js'
+        path: 'pages'
 
     - name: Deploy to GitHub Pages
       id: deployment
