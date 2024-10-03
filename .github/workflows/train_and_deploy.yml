@@ -43,6 +43,16 @@ jobs:
       run: |
         python scripts/train.py --input-dir data --save-dir pages
 
+    - name: Convert Keras model to TensorFlow.js format
+      run: |
+        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages
+        MODEL_JSON_PATH="pages/model.json"
+        SUBDIRECTORY="concrete-playground"
+        jq --arg subdirectory "$SUBDIRECTORY" '
+          .weightsManifest |= map(
+            .paths |= map($subdirectory + "/" + .)
+          )
+        ' "$MODEL_JSON_PATH" > tmp.$$.json && mv tmp.$$.json "$MODEL_JSON_PATH"
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
