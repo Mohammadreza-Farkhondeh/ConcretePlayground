@@ -11,6 +11,11 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
     const fineAggregate = parseFloat(document.getElementById('fine-aggregate').value);
     const age = parseFloat(document.getElementById('age').value);
 
+    if (isNaN(cement) || isNaN(blastFurnaceSlag) || isNaN(flyAsh) || isNaN(water) || isNaN(superplasticizer) || isNaN(coarseAggregate) || isNaN(fineAggregate) || isNaN(age)) {
+        document.getElementById('result').innerText = 'Please enter valid numbers for all inputs.';
+        return;
+    }
+
     let model;
     try {
         model = await tf.loadLayersModel(modelUrl);
@@ -26,8 +31,9 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
     const inp = [cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, logAge];
 
     const inputShape = [1, 8];
-    const input = tf.tensor2d([scaledInput], inputShape);
+    const input = tf.tensor2d([inp], inputShape);
     console.log('Input tensor shape:', input.shape);
+
     let prediction;
     try {
         prediction = model.predict(input);
@@ -39,4 +45,3 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
         document.getElementById('result').innerText = 'Error during prediction.';
     }
 });
-
