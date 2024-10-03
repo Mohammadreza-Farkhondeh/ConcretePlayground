@@ -3,21 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concrete playground</title>
+    <title>Concrete Playground</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>ConcreteStrengthAI</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="model-details.html">Model Details</a></li>
-                <li><a href="data.html">Data</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
     </header>
     <main>
         <h2>Predict Concrete Compressive Strength</h2>
@@ -54,13 +45,10 @@
                 <label for="age">Age (days):</label>
                 <input type="number" id="age" name="age" value="28" step="1" required>
             </div>
-            <input type="submit" value="Predict">
+            <input type="submit" value="Predict" class="submit-button">
         </form>
         <div id="result"></div>
     </main>
-    <footer>
-        <p>&copy; 2024 Concrete Playground</p>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="index.js"></script>
 </body>
