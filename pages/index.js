@@ -1,6 +1,7 @@
 document.getElementById('prediction-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const modelUrl = "model.json";
     const cement = parseFloat(document.getElementById('cement').value);
     const blastFurnaceSlag = parseFloat(document.getElementById('blast-furnace-slag').value);
     const flyAsh = parseFloat(document.getElementById('fly-ash').value);
@@ -10,7 +11,6 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
     const fineAggregate = parseFloat(document.getElementById('fine-aggregate').value);
     const age = parseFloat(document.getElementById('age').value);
 
-    const modelUrl = 'model.json';
     let model;
     try {
         model = await tf.loadLayersModel(modelUrl);
@@ -23,18 +23,11 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
 
     const logAge = Math.log(age);
 
-    const response = await fetch('scaler_params.json');
-    const scalerParams = await response.json();
-
     const inp = [cement, blastFurnaceSlag, flyAsh, water, superplasticizer, coarseAggregate, fineAggregate, logAge];
-    const scaledInput = inp.map((value, index) => {
-        return (value - scalerParams.mean[index]) / Math.sqrt(scalerParams.var[index]);
-    });
 
     const inputShape = [1, 8];
     const input = tf.tensor2d([scaledInput], inputShape);
     console.log('Input tensor shape:', input.shape);
-
     let prediction;
     try {
         prediction = model.predict(input);
@@ -46,3 +39,4 @@ document.getElementById('prediction-form').addEventListener('submit', async (e) 
         document.getElementById('result').innerText = 'Error during prediction.';
     }
 });
+

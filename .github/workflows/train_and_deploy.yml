@@ -37,27 +37,16 @@ jobs:
 
     - name: Run data preprocessing
       run: |
-        python scripts/preprocess.py
+        python scripts/preprocess.py --input data/concrete_compressive_strength.csv --output data
 
     - name: Run model training
       run: |
-        python scripts/train.py
-
-    - name: Convert Keras model to TensorFlow.js format
-      run: |
-        tensorflowjs_converter --input_format keras model/concrete_model.h5 pages
-        MODEL_JSON_PATH="pages/model.json"
-        SUBDIRECTORY="concrete-playground"
-        jq --arg subdirectory "$SUBDIRECTORY" '
-          .weightsManifest |= map(
-            .paths |= map($subdirectory + "/" + .)
-          )
-        ' "$MODEL_JSON_PATH" > tmp.$$.json && mv tmp.$$.json "$MODEL_JSON_PATH"
+        python scripts/train.py --input-dir data --save-dir model_js
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: 'pages'
+        path: 'model_js'
 
     - name: Deploy to GitHub Pages
       id: deployment

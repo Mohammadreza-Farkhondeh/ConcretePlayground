@@ -1,97 +1,87 @@
-body {
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: #f4f4f9;
+    color: #333;
 }
 
 header {
     background-color: #35424a;
     color: #ffffff;
-    padding: 20px 0;
+    padding: 40px 0;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    margin: 100;
-    font-size: 2em;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-nav ul li {
-    margin: 0 10px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    padding: 10px 20px;
-    background-color: #e8491d;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-nav ul li a:hover {
-    background-color: #d7370f;
+    font-size: 2.5em;
+    letter-spacing: 2px;
 }
 
 main {
     padding: 20px;
-    max-width: 800px;
-    margin: auto;
+    max-width: 600px;
+    margin: 30px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
     text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #35424a;
 }
 
 form {
-    background-color: #ffffff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .form-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box;
+    transition: border-color 0.3s;
 }
 
-input[type="submit"] {
+.form-group input:focus {
+    border-color: #35424a;
+    outline: none;
+}
+
+.submit-button {
     display: block;
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #35424a;
+    background-color: #e8491d;
     color: #ffffff;
-    font-size: 1em;
+    font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-input[type="submit"]:hover {
-    background-color: #2a3a3e;
+.submit-button:hover {
+    background-color: #d7370f;
+    transform: translateY(-2px);
 }
 
 #result {
